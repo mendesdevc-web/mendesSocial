@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="MediatR" Version="10.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Post\CommandsHandlers\" />
+    <Folder Include="Post\Commands\" />
+    <Folder Include="Post\QueriesHandlers\" />
+    <Folder Include="Post\Queries\" />
+    <Folder Include="UserProfiles\QueriesHandlers\" />
+    <Folder Include="UserProfiles\Queries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\mendes.Dal\mendes.Dal.csproj" />
+    <ProjectReference Include="..\mendes.Domain\mendes.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

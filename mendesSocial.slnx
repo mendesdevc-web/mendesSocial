@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="mendes.Dal/mendes.Dal.csproj" />
+  <Project Path="mendes.Domain/mendes.Domain.csproj" />
+  <Project Path="mendesSocial.API/mendesSocial.Api.csproj" />
+  <Project Path="mendesSocial.Application/mendes.Application.csproj" />
+</Solution>
