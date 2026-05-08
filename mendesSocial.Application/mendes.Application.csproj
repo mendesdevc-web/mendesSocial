@@ -16,8 +16,6 @@
     <Folder Include="Post\Commands\" />
     <Folder Include="Post\QueriesHandlers\" />
     <Folder Include="Post\Queries\" />
-    <Folder Include="UserProfiles\QueriesHandlers\" />
-    <Folder Include="UserProfiles\Queries\" />
   </ItemGroup>
 
   <ItemGroup>

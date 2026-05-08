@@ -24,6 +24,7 @@
   <ItemGroup>
     <ProjectReference Include="..\mendes.Dal\mendes.Dal.csproj" />
     <ProjectReference Include="..\mendes.Domain\mendes.Domain.csproj" />
+    <ProjectReference Include="..\mendesSocial.Application\mendes.Application.csproj" />
   </ItemGroup>
 
   <ItemGroup>

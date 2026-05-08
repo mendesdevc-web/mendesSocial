@@ -1,6 +1,10 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
+using mendes.Application.UserProfiles.Commands;
+using mendes.Application.UserProfiles.Queries;
 using mendes.Domain.Aggregates.UserProfileAggregate;
 using mendesSocial.Api.Contracts.UserProfile.Requests;
+using mendesSocial.Api.Contracts.UserProfile.Responses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace mendesSocial.Api.Controllers.V1
@@ -11,22 +15,59 @@ namespace mendesSocial.Api.Controllers.V1
     public class UserProfilesController : Controller
     {
         private readonly IMediator _mediator;
-        public UserProfilesController(IMediator mediator)
+        private readonly IMapper _mapper;
+        public UserProfilesController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
+            _mapper = mapper;
         }
 
 
         [HttpGet]
         public async Task<IActionResult> GetAllProfiles()
         {
-            return await Task.FromResult(Ok());
+            var query = new GetAllUserProfiles();
+            var response = await _mediator.Send(query);
+            var profiles = _mapper.Map<List<UserProfileResponse>>(response);
+            return Ok(profiles);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateUserProfile([FromBody] UserProfileCreateUpdate profile)
         {
-            return (IActionResult)Task.FromResult(Ok());
+            var command = _mapper.Map<CreateUserCommand>(profile);
+            var response = await _mediator.Send(command);
+            var userProfile = _mapper.Map<UserProfileResponse>(response);
+
+            return CreatedAtAction(nameof(GetUserProfileById), new { id = response.UserProfileId }, userProfile);
+        }
+
+        [Route(ApiRoutes.UserProfiles.IdRoute)]
+        [HttpGet]
+        public async Task<IActionResult> GetUserProfileById(string id)
+        {
+            var query = new GetUserProfileById {UserProfileId = Guid.Parse(id)};
+            var response = await _mediator.Send(query);
+            var userProfile = _mapper.Map<UserProfileResponse>(response);
+            return Ok(userProfile);
+        }
+
+        [HttpPatch]
+        [Route(ApiRoutes.UserProfiles.IdRoute)]
+        public async Task<IActionResult> UpdateUserProfile(string id, UserProfileCreateUpdate updatedProfile)
+        {
+            var command = _mapper.Map<UpdateUserProfileBasicInfo>(updatedProfile);
+            command.UserProfileId = Guid.Parse(id); 
+            var response = await _mediator.Send(command);
+
+            return NoContent();
+        }
+
+        [HttpDelete]
+        [Route(ApiRoutes.UserProfiles.IdRoute)]
+        public async Task<IActionResult> DeleteUserProfile()
+        {
+
         }
     }
 }
