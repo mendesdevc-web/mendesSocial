@@ -13,7 +13,7 @@ namespace mendesSocial.Api.MappingProfiles
             CreateMap<UserProfileCreateUpdate, CreateUserCommand>();
             CreateMap<UserProfileCreateUpdate, UpdateUserProfileBasicInfo>();
             CreateMap<UserProfile, UserProfileResponse>();
-            CreateMap<BasicInfo, BasicInformation>();
+            CreateMap<BasicInfo, BasicInformation>(); 
         }
     }
 }

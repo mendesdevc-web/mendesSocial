@@ -2,7 +2,7 @@
 
 namespace mendesSocial.Api.Contracts.UserProfile.Requests
 {
-    public record UserProfileCreateUpdate
+    public class UserProfileCreateUpdate
     {
         [Required]
         [MinLength(3)]

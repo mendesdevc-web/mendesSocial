@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using mendes.Application.UserProfiles.CommandHandlers;
+using mendes.Application.UserProfiles.Commands;
 using mendes.Dal;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace mendes.Application.UserProfiles.Commands
+namespace mendes.Application.UserProfiles.CommandHandlers
 {
     internal class DeleteUserProfileHandler : IRequestHandler<DeleteUserProfile>
     {

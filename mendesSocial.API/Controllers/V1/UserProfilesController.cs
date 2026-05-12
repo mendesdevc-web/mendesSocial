@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using mendes.Application.UserProfiles.CommandHandlers;
 using mendes.Application.UserProfiles.Commands;
 using mendes.Application.UserProfiles.Queries;
 using mendes.Domain.Aggregates.UserProfileAggregate;
@@ -65,9 +66,12 @@ namespace mendesSocial.Api.Controllers.V1
 
         [HttpDelete]
         [Route(ApiRoutes.UserProfiles.IdRoute)]
-        public async Task<IActionResult> DeleteUserProfile()
+        public async Task<IActionResult> DeleteUserProfile(string id)
         {
+            var command = new DeleteUserProfile() { UserProfileId = Guid.Parse(id) };
+            var response = await _mediator.Send(command);
 
+            return NoContent();
         }
     }
 }

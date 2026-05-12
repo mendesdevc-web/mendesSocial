@@ -12,7 +12,7 @@ using mendes.Dal;
 namespace mendes.Dal.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20260505173651_InitialCreate")]
+    [Migration("20260512170344_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

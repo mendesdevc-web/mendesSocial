@@ -28,6 +28,7 @@ namespace mendes.Domain.Aggregates.UserProfileAggregate
                 EmailAddress = emailAddress,
                 Phone = phone,
                 DateOfBirth = dateOfBirth,
+                CurrentCity = currentCity
             };
         }
     }

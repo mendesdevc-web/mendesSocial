@@ -1,6 +1,6 @@
 ﻿namespace mendesSocial.Api.Contracts.UserProfile.Responses
 {
-    public record UserProfileResponse
+    public class UserProfileResponse
     {
         public Guid UserProfileId { get; set; }
         public BasicInformation? BasicInfo { get; set; }
