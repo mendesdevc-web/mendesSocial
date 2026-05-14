@@ -1,4 +1,6 @@
-﻿using System;
+﻿using mendes.Domain.Exceptions;
+using mendes.Domain.Validators.PostValidators;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,8 +24,8 @@ namespace mendes.Domain.Aggregates.PostAggregate
         //Factory method
         public static PostComment CreatePostComment(Guid postId, string text, Guid userProfileId)
         {
-            //TO DO: add validation
-            return new PostComment
+            var validator = new PostCommentValidator();
+            var objectToValidate = new PostComment
             {
                 PostId = postId,
                 Text = text,
@@ -31,6 +33,17 @@ namespace mendes.Domain.Aggregates.PostAggregate
                 DateCreated = DateTime.UtcNow,
                 LastModified = DateTime.UtcNow
             };
+
+            var validationResult = validator.Validate(objectToValidate);
+
+            if (validationResult.IsValid) return objectToValidate;
+
+            var exception = new PostCommentNotValidException("Post comment is not valid");
+
+            validationResult.Errors.ForEach(vr => exception.ValidationErrors.Add(vr.ErrorMessage));
+            throw exception;
+
+
         }
         //public methods
         public void UpdateCommentText(string newText)

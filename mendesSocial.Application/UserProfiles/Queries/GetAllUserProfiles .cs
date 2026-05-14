@@ -1,14 +1,10 @@
 ﻿using MediatR;
+using mendes.Application.Models;
 using mendes.Domain.Aggregates.UserProfileAggregate;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace mendes.Application.UserProfiles.Queries
 {
-    public class GetAllUserProfiles : IRequest<IEnumerable<UserProfile>>
+    public class GetAllUserProfiles : IRequest<OperationResult<IEnumerable<UserProfile>>>
     {
 
     }

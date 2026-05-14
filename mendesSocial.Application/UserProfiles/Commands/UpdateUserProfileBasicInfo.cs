@@ -1,13 +1,10 @@
 ﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using mendes.Domain.Aggregates.UserProfileAggregate;
+using mendes.Application.Models;
 
 namespace mendes.Application.UserProfiles.Commands
 {
-    public class UpdateUserProfileBasicInfo : IRequest
+    public class UpdateUserProfileBasicInfo : IRequest<OperationResult<UserProfile>>
     {
         public Guid UserProfileId { get; set; }
         public string FirstName { get; set; }

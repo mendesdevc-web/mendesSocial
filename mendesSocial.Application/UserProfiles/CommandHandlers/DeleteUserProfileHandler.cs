@@ -1,15 +1,14 @@
 ﻿using MediatR;
+using mendes.Application.Enums;
+using mendes.Application.Models;
 using mendes.Application.UserProfiles.Commands;
 using mendes.Dal;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using mendes.Domain.Aggregates.UserProfileAggregate;
+
 
 namespace mendes.Application.UserProfiles.CommandHandlers
 {
-    internal class DeleteUserProfileHandler : IRequestHandler<DeleteUserProfile>
+    internal class DeleteUserProfileHandler : IRequestHandler<DeleteUserProfile, OperationResult<UserProfile>>
     {
         private readonly DataContext _ctx;
         public DeleteUserProfileHandler(DataContext ctx)
@@ -17,15 +16,29 @@ namespace mendes.Application.UserProfiles.CommandHandlers
             _ctx = ctx;
         }
 
-        public async Task<Unit> Handle(DeleteUserProfile request, CancellationToken cancellationToken)
+        public async Task<OperationResult<UserProfile>> Handle(DeleteUserProfile request, CancellationToken cancellationToken)
         {
+            var result = new OperationResult<UserProfile>();
             var userProfile = _ctx.UserProfiles
                 .FirstOrDefault(up => up.UserProfileId == request.UserProfileId);
+
+            if (userProfile == null)
+            {
+                result.IsError = true;
+                var error = new Error
+                {
+                    Code = ErrorCode.NotFound,
+                    Message = $"No UserProfile found with Id {request.UserProfileId}"
+                };
+                result.Errors.Add(error);
+                return result;
+            }
 
             _ctx.UserProfiles.Remove(userProfile);
             await _ctx.SaveChangesAsync();
 
-            return new Unit();
+            result.Payload = userProfile;
+            return result;
         }
     }
 }

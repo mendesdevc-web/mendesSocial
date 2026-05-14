@@ -1,9 +1,10 @@
 ﻿using MediatR;
+using mendes.Application.Models;
 using mendes.Domain.Aggregates.UserProfileAggregate;
 
 namespace mendes.Application.UserProfiles.Commands
 {
-    public class CreateUserCommand : IRequest<UserProfile>
+    public class CreateUserCommand : IRequest<OperationResult<UserProfile>>
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

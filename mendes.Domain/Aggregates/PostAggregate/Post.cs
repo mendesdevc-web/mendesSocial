@@ -1,4 +1,5 @@
-﻿using System;
+﻿using mendes.Domain.Validators.PostValidators;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -28,13 +29,18 @@ namespace mendes.Domain.Aggregates.PostAggregate
         //Factory methods
         public static Post CreatePost(Guid userProfileId, string textContent)
         {
-            return new Post
+           var validator = new PostValidator();
+           var objectToValidate = new Post
             {
                 UserProfileId = userProfileId,
                 TextContent = textContent,
                 CreatedDate = DateTime.UtcNow,
                 LastModified = DateTime.UtcNow
             };
+
+            var validationResult = validator.Validate(objectToValidate);
+            if (validationResult.IsValid) return objectToValidate;
+
         }
         public void UptadePostText(string newText)
         {
