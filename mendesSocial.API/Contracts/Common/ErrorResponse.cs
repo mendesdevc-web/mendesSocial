@@ -1,4 +1,4 @@
-﻿namespace mendesSocial.Api.Contracts.Common
+﻿namespace mendes.Api.Contracts.Common
 {
     public class ErrorResponse
     {

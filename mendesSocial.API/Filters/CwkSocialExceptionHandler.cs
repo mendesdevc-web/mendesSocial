@@ -1,8 +1,8 @@
-﻿using mendesSocial.Api.Contracts.Common;
+﻿using mendes.Api.Contracts.Common;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace mendesSocial.Api.Filters
+namespace mendes.Api.Filters
 {
     public class CwkSocialExceptionHandler : ExceptionFilterAttribute
     {

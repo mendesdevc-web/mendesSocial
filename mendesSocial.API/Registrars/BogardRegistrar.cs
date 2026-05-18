@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using mendes.Application.UserProfiles.Queries;
 
-namespace mendesSocial.Api.Registrars
+namespace mendes.Api.Registrars
 {
     public class BogardRegistrar : IWebApplicationBuilderRegistrar
     {

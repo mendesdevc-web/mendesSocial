@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace mendesSocial.Api.Contracts.UserProfile.Requests
+namespace mendes.Api.Contracts.UserProfile.Requests
 {
     public class UserProfileCreateUpdate
     {

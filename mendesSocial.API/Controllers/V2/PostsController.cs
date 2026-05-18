@@ -1,7 +1,7 @@
 ﻿using mendes.Domain.Aggregates.PostAggregate;
 using Microsoft.AspNetCore.Mvc;
 
-namespace mendesSocial.Api.Controllers.V2
+namespace mendes.Api.Controllers.V2
 {
 
     [ApiVersion("2.0")]

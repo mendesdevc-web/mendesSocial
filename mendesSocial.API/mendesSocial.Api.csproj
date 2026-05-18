@@ -27,9 +27,4 @@
     <ProjectReference Include="..\mendesSocial.Application\mendes.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Contracts\Post\Requests\" />
-    <Folder Include="Contracts\Post\Responses\" />
-  </ItemGroup>
-
 </Project>

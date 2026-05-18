@@ -1,8 +1,8 @@
-﻿using mendesSocial.Api.Filters;
+﻿using mendes.Api.Filters;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 
-namespace mendesSocial.Api.Registrars
+namespace mendes.Api.Registrars
 {
     public class MvcRegistrar : IWebApplicationBuilderRegistrar
     {

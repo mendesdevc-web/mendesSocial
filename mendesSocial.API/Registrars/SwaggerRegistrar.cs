@@ -1,6 +1,6 @@
-﻿using mendesSocial.Api.Options;
+﻿using mendes.Api.Options;
 
-namespace mendesSocial.Api.Registrars
+namespace mendes.Api.Registrars
 {
     public class SwaggerRegistrar : IWebApplicationBuilderRegistrar
     {

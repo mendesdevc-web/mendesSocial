@@ -1,6 +1,6 @@
 ﻿using mendes.Dal;
 using Microsoft.EntityFrameworkCore;
-namespace mendesSocial.Api.Registrars
+namespace mendes.Api.Registrars
 {
     public class DbRegistrar : IWebApplicationBuilderRegistrar
     {

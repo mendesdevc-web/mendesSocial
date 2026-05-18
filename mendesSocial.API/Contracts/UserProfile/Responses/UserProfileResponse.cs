@@ -1,4 +1,4 @@
-﻿namespace mendesSocial.Api.Contracts.UserProfile.Responses
+﻿namespace mendes.Api.Contracts.UserProfile.Responses
 {
     public class UserProfileResponse
     {

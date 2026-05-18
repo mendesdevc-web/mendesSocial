@@ -3,13 +3,13 @@ using MediatR;
 using mendes.Application.UserProfiles.Commands;
 using mendes.Application.UserProfiles.Queries;
 using mendes.Domain.Aggregates.UserProfileAggregate;
-using mendesSocial.Api.Contracts.Common;
-using mendesSocial.Api.Contracts.UserProfile.Requests;
-using mendesSocial.Api.Contracts.UserProfile.Responses;
-using mendesSocial.Api.Filters;
+using mendes.Api.Contracts.Common;
+using mendes.Api.Contracts.UserProfile.Requests;
+using mendes.Api.Contracts.UserProfile.Responses;
+using mendes.Api.Filters;
 using Microsoft.AspNetCore.Mvc;
 
-namespace mendesSocial.Api.Controllers.V1
+namespace mendes.Api.Controllers.V1
 {
     [ApiVersion("1.0")]
     [Route(ApiRoutes.BaseRoute)]

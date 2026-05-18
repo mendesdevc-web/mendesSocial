@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ApiExplorer;
 
-namespace mendesSocial.Api.Registrars
+namespace mendes.Api.Registrars
 {
     public class MvcWebAppRegistrar : IWebApplicationRegistrar
     {

@@ -12,13 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Post\CommandsHandlers\" />
-    <Folder Include="Post\Commands\" />
-    <Folder Include="Post\QueriesHandlers\" />
-    <Folder Include="Post\Queries\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\mendes.Dal\mendes.Dal.csproj" />
     <ProjectReference Include="..\mendes.Domain\mendes.Domain.csproj" />
   </ItemGroup>

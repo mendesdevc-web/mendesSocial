@@ -1,6 +1,6 @@
-﻿using mendesSocial.Api.Registrars;
+﻿using mendes.Api.Registrars;
 
-namespace mendesSocial.Api.Extensions
+namespace mendes.Api.Extensions
 {
     public static class RegistrarExtensions
     {

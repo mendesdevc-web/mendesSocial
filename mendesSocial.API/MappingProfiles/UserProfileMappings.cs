@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using mendesSocial.Api.Contracts.UserProfile.Requests;
+using mendes.Api.Contracts.UserProfile.Requests;
 using mendes.Application.UserProfiles.Commands;
 using mendes.Domain.Aggregates.UserProfileAggregate;
-using mendesSocial.Api.Contracts.UserProfile.Responses;
+using mendes.Api.Contracts.UserProfile.Responses;
 
-namespace mendesSocial.Api.MappingProfiles
+namespace mendes.Api.MappingProfiles
 {
     public class UserProfileMappings : Profile
     {

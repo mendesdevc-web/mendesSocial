@@ -1,4 +1,4 @@
-﻿namespace mendesSocial.Api.Registrars
+﻿namespace mendes.Api.Registrars
 {
     public interface IWebApplicationRegistrar : IRegistrar
     {

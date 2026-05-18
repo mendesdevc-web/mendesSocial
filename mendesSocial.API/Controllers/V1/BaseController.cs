@@ -1,10 +1,10 @@
 ﻿using Azure;
 using mendes.Application.Enums;
 using mendes.Application.Models;
-using mendesSocial.Api.Contracts.Common;
+using mendes.Api.Contracts.Common;
 using Microsoft.AspNetCore.Mvc;
 
-namespace mendesSocial.Api.Controllers.V1
+namespace mendes.Api.Controllers.V1
 {
     public class BaseController : ControllerBase
     {

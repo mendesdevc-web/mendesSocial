@@ -1,4 +1,4 @@
-using mendesSocial.Api.Extensions;
+using mendes.Api.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
