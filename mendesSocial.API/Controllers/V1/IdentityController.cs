@@ -23,7 +23,7 @@ namespace mendesSocial.Api.Controllers.V1
             _mediator = mediator;
             _mapper = mapper;
         }
-        
+
         [HttpPost]
         [Route(ApiRoutes.Identity.Registration)]
         [ValidateModel]
@@ -34,7 +34,22 @@ namespace mendesSocial.Api.Controllers.V1
 
             if (result.IsError) return HandleErrorResponse(result.Errors);
 
-            var authenticationResult = new AuthenticationResult() {  Token = result.Payload };
+            var authenticationResult = new AuthenticationResult() { Token = result.Payload };
+
+            return Ok(authenticationResult);
+        }
+
+        [HttpPost]
+        [Route(ApiRoutes.Identity.Login)]
+        [ValidateModel]
+        public async Task<IActionResult> Login(Login login)
+        {
+            var command = _mapper.Map<LoginCommand>(login);
+            var result = await _mediator.Send(command);
+
+            if (result.IsError) return HandleErrorResponse(result.Errors);
+
+            var authenticationResult = new AuthenticationResult() { Token = result.Payload };
 
             return Ok(authenticationResult);
         }

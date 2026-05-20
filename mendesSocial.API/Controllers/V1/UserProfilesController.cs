@@ -2,18 +2,19 @@
 using MediatR;
 using mendes.Application.UserProfiles.Commands;
 using mendes.Application.UserProfiles.Queries;
-using mendes.Domain.Aggregates.UserProfileAggregate;
-using mendes.Api.Contracts.Common;
 using mendes.Api.Contracts.UserProfile.Requests;
 using mendes.Api.Contracts.UserProfile.Responses;
 using mendes.Api.Filters;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace mendes.Api.Controllers.V1
 {
     [ApiVersion("1.0")]
     [Route(ApiRoutes.BaseRoute)]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class UserProfilesController : BaseController
     {
         private readonly IMediator _mediator;

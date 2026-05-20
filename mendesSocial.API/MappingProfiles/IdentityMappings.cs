@@ -9,6 +9,7 @@ namespace mendesSocial.Api.MappingProfiles
         public IdentityMappings()
         {
             CreateMap<UserRegistration, RegisterIdentity>();
+            CreateMap<Login, LoginCommand>();
         }
     }
 }
