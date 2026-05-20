@@ -7,6 +7,8 @@ using mendes.Application.Postss.Queries;
 using Microsoft.AspNetCore.Mvc;
 using mendesSocial.Api.Contracts.Post.Requests;
 using mendes.Application.Posts.Commands;
+using mendesSocial.Api.Contracts.Post.Responses;
+using mendes.Api.Contracts.Common;
 
 namespace mendes.Api.Controllers.V1
 {
@@ -21,7 +23,6 @@ namespace mendes.Api.Controllers.V1
         {
             _mediator = mediator;
             _mapper = mapper;
-
         }
 
         [HttpGet]
@@ -30,7 +31,6 @@ namespace mendes.Api.Controllers.V1
             var result = await _mediator.Send(new GetAllPosts());
             var mapped = _mapper.Map<List<PostResponse>>(result.Payload);
             return result.IsError ? HandleErrorResponse(result.Errors) : Ok(mapped);
-
         }
 
         [HttpGet]
@@ -50,7 +50,6 @@ namespace mendes.Api.Controllers.V1
         [ValidateModel]
         public async Task<IActionResult> CreatePost([FromBody] PostCreate newPost)
         {
-
             var command = new CreatePost()
             {
                 UserProfileId = newPost.UserProfileId,
@@ -89,7 +88,56 @@ namespace mendes.Api.Controllers.V1
             var result = await _mediator.Send(command);
 
             return result.IsError ? HandleErrorResponse(result.Errors) : NotFound();
+        }
 
+        [HttpGet]
+        [Route(ApiRoutes.Posts.PostComments)]
+        [ValidateGuid("postId")]
+        public async Task<IActionResult> GetCommentsByPostId(string postId)
+        {
+            var query = new GetPostComments() { PostId = Guid.Parse(postId) };
+            var result = await _mediator.Send(query);
+
+            if (result.IsError) HandleErrorResponse(result.Errors);
+
+            var comments = _mapper.Map<List<PostCommentResponse>>(result.Payload);
+
+            return Ok(comments);
+        }
+
+        [HttpPost]
+        [Route(ApiRoutes.Posts.PostComments)]
+        [ValidateGuid("postId")]
+        [ValidateModel]
+        public async Task<IActionResult> AddComentToPost(string postId, [FromBody] PostCommentCreate comment)
+        {
+            var isValidGuid = Guid.TryParse(comment.UserProfileId, out var userProfileId);
+            if(isValidGuid)
+            {
+                var apiError = new ErrorResponse();
+
+                apiError.StatusCode = 400;
+                apiError.StatusPhrase = "Bad Request";
+                apiError.Timestamp = DateTime.Now;
+                apiError.Errors.Add("The provided UserProfileId is not a valid GUID.");
+
+                return BadRequest(apiError);
+            }
+
+            var command = new AddPostComment()
+            {
+                PostId = Guid.Parse(postId),
+                UserProfileId = userProfileId,
+                CommentText = comment.Text
+            };
+            
+            var result = await _mediator.Send(command);
+
+            if (result.IsError) return HandleErrorResponse(result.Errors);
+
+            var newComment = _mapper.Map<PostCommentResponse>(result.Payload);
+
+            return Ok(newComment);
         }
     }
 }
