@@ -30,6 +30,8 @@ namespace mendes.Application.Enums
         CommentRemovalNotAuthorized = 307,
         FriendRequestAcceptNotPossible = 308,
         FriendRequestRejectNotPossible = 309,
-        UnknownError = 501,
+
+
+        UnknownError = 999
     }
 }

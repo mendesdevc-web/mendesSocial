@@ -1,12 +1,69 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
+using mendes.Application.Enums;
+using mendes.Application.Identity.Commands;
+using mendes.Application.Models;
+using mendes.Application.UserProfiles;
+using mendes.Dal;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace mendes.Application.Identity.Handlers
 {
-    internal class RemoveAccountHandler
+    public class RemoveAccountHandler : IRequestHandler<RemoveAccount, OperationResult<bool>>
     {
+        private readonly DataContext _ctx;
+
+        public RemoveAccountHandler(DataContext ctx)
+        {
+            _ctx = ctx;
+        }
+        public async Task<OperationResult<bool>> Handle(RemoveAccount request,
+            CancellationToken cancellationToken)
+        {
+            var result = new OperationResult<bool>();
+
+            try
+            {
+                var identityUser = await _ctx.Users.FirstOrDefaultAsync(iu
+                    => iu.Id == request.IdentityUserId.ToString(), cancellationToken);
+
+                if (identityUser == null)
+                {
+                    result.AddError(ErrorCode.IdentityUserDoesNotExist,
+                        IdentityErrorMessages.NonExistentIdentityUser);
+                    return result;
+                }
+
+                var userProfile = await _ctx.UserProfiles
+                    .FirstOrDefaultAsync(up
+                        => up.IdentityId == request.IdentityUserId.ToString(), cancellationToken);
+
+                if (userProfile == null)
+                {
+                    result.AddError(ErrorCode.NotFound, UserProfilesErrorMessages.UserProfileNotFound);
+                    return result;
+                }
+
+                if (identityUser.Id != request.RequestorGuid.ToString())
+                {
+                    result.AddError(ErrorCode.UnauthorizedAccountRemoval,
+                        IdentityErrorMessages.UnauthorizedAccountRemoval);
+
+                    return result;
+                }
+
+                _ctx.UserProfiles.Remove(userProfile);
+                _ctx.Users.Remove(identityUser);
+                await _ctx.SaveChangesAsync(cancellationToken);
+
+                result.Payload = true;
+            }
+            catch (Exception e)
+            {
+                result.AddUnknownError(e.Message);
+            }
+
+            return result;
+        }
     }
 }

@@ -9,23 +9,21 @@ namespace mendes.Dal
 {
     public class DataContext : IdentityDbContext
     {
-        // Use DbContextOptions<DataContext> para eliminar ambiguidade ao configurar o contexto
-        public DataContext(DbContextOptions<DataContext> options) : base(options)
-        {   
+        public DataContext(DbContextOptions options) : base(options)
+        {
         }
 
         public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<Post> Posts { get; set; }
+        public DbSet<FriendRequest> FriendRequests { get; set; }
+        public DbSet<Friendship> Friendships { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new PostCommentConfig());
-            modelBuilder.ApplyConfiguration(new PostInteractionConfig());
-            modelBuilder.ApplyConfiguration(new UserProfileConfig());
-            modelBuilder.ApplyConfiguration(new IdentityUserLoginConfig());
-            modelBuilder.ApplyConfiguration(new IdentityUserRoleConfig());
-            modelBuilder.ApplyConfiguration(new IdentityUserTokenConfig());
-
+            modelBuilder.Ignore<BasicInfo>();
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(DataContext).Assembly);
+            base.OnModelCreating(modelBuilder);
         }
     }
+
 }

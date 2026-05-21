@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace mendes.Application.Posts.QueriesHandlers
+namespace mendes.Application.Posts
 {
     public class PostsErrorMessages
     {

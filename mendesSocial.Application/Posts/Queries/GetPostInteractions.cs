@@ -2,12 +2,10 @@
 using mendes.Application.Models;
 using mendes.Domain.Aggregates.PostAggregate;
 
-
-namespace mendes.Application.Posts.Commands
+namespace mendes.Application.Posts.Queries
 {
-    public class DeletePost : IRequest<OperationResult<Post>>
+    public class GetPostInteractions : IRequest<OperationResult<List<PostInteraction>>>
     {
         public Guid PostId { get; set; }
-        public Guid UserProfileId { get; set; }
     }
 }

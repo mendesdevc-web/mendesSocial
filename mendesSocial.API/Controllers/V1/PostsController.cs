@@ -1,14 +1,16 @@
 ﻿using AutoMapper;
 using MediatR;
-using mendes.Application.Posts.Queries;
+using mendes.Api.Contracts.Common;
 using mendes.Api.Contracts.Post.Responses;
 using mendes.Api.Filters;
-using mendes.Application.Postss.Queries;
-using Microsoft.AspNetCore.Mvc;
-using mendesSocial.Api.Contracts.Post.Requests;
 using mendes.Application.Posts.Commands;
+using mendes.Application.Posts.Queries;
+using mendes.Application.Postss.Queries;
+using mendesSocial.Api.Contracts.Post.Requests;
 using mendesSocial.Api.Contracts.Post.Responses;
-using mendes.Api.Contracts.Common;
+using mendesSocial.Api.Extensions;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace mendes.Api.Controllers.V1
 {
@@ -50,9 +52,11 @@ namespace mendes.Api.Controllers.V1
         [ValidateModel]
         public async Task<IActionResult> CreatePost([FromBody] PostCreate newPost)
         {
+            var userProfileId = HttpContext.GetUserProfileIdClaimValue();
+
             var command = new CreatePost()
             {
-                UserProfileId = newPost.UserProfileId,
+                UserProfileId = userProfileId,
                 TextContent = newPost.TextContent
             };
 
@@ -69,10 +73,13 @@ namespace mendes.Api.Controllers.V1
         [ValidateModel]
         public async Task<IActionResult> UpdatePostText([FromBody] PostUpdate updatedPost, string id)
         {
+            var userProfileId = HttpContext.GetUserProfileIdClaimValue();
+
             var command = new UpdatePostText()
             {
                 NewText = updatedPost.Text,
                 PostId = Guid.Parse(id),
+                UserProfileId = userProfileId
             };
             var result = await _mediator.Send(command);
 

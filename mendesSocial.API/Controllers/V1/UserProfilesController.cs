@@ -36,18 +36,6 @@ namespace mendes.Api.Controllers.V1
             return Ok(profiles);
         }
 
-        [HttpPost]
-        [ValidateModel]
-        public async Task<IActionResult> CreateUserProfile([FromBody] UserProfileCreateUpdate profile)
-        {
-            var command = _mapper.Map<CreateUserCommand>(profile);
-            var response = await _mediator.Send(command);
-
-            var userProfile = _mapper.Map<UserProfileResponse>(response.Payload);
-
-            return CreatedAtAction(nameof(GetUserProfileById), 
-                new { id = userProfile.UserProfileId }, userProfile);
-        }
 
         [Route(ApiRoutes.UserProfiles.IdRoute)]
         [HttpGet]
@@ -75,6 +63,10 @@ namespace mendes.Api.Controllers.V1
 
             return response.IsError ? HandleErrorResponse(response.Errors): NoContent();
         }
+
+        // Maybe this should the identity controller
+        // When an identity is deleted, the also the associated user profile shiyld be deleted
+        // Maybe open a GH for that
 
         [HttpDelete]
         [Route(ApiRoutes.UserProfiles.IdRoute)]
