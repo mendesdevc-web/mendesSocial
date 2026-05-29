@@ -30,5 +30,6 @@ namespace mendes.Domain.Aggregates.PostAggregate
                 InteractionType = type
             };
         }
+
     }
 }

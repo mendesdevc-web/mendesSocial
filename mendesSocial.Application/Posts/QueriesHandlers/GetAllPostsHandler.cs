@@ -24,11 +24,7 @@ namespace mendes.Application.Postss.QueryHandlers
             }
             catch (Exception e)
             {
-                result.Errors.Add(new Error
-                {
-                    Code = Enums.ErrorCode.UnknownError,
-                    Message = e.Message
-                });
+                result.AddUnknownError(e.Message);
             }
 
             return result;

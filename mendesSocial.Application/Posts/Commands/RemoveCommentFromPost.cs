@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
+using mendes.Application.Models;
+using mendes.Domain.Aggregates.PostAggregate;
+
 
 namespace mendes.Application.Posts.Commands
 {
-    internal class RemoveCommentFromPost
+    public class RemoveCommentFromPost : IRequest<OperationResult<PostComment>>
     {
+        public Guid UserProfileId { get; set; }
+        public Guid PostId { get; set; }
+        public Guid CommentId { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using mendes.Application.Identity.Commands;
+using mendes.Application.Identity.Dtos;
 using mendesSocial.Api.Contracts.Identity;
 
 namespace mendesSocial.Api.MappingProfiles
@@ -10,6 +11,7 @@ namespace mendesSocial.Api.MappingProfiles
         {
             CreateMap<UserRegistration, RegisterIdentity>();
             CreateMap<Login, LoginCommand>();
+            CreateMap<IdentityUserProfileDto, IdentityUserProfile>();
         }
     }
 }

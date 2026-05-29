@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using mendes.Application.Models;
+using mendes.Domain.Aggregates.PostAggregate;
 
 
 namespace mendes.Application.Posts.Queries
 {
-    public class GetPostById : IRequest<OperationResult<mendes.Domain.Aggregates.PostAggregate.Post>>
+    public class GetPostById : IRequest<OperationResult<Post>>
     {
         public Guid PostId { get; set; }
     }

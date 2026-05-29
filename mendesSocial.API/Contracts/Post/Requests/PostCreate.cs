@@ -6,6 +6,5 @@ namespace mendesSocial.Api.Contracts.Post.Requests
     {
         [Required]
         public string TextContent { get; set; }
-        public Guid UserProfileId { get; internal set; }
     }
 }

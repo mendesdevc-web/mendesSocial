@@ -2,6 +2,7 @@
 using mendes.Application.Enums;
 using mendes.Application.Models;
 using mendes.Dal;
+using mendes.Domain.Aggregates.Friendships;
 using mendes.Domain.Exceptions;
 
 namespace mendes.Application.Friendships
@@ -43,3 +44,4 @@ namespace mendes.Application.Friendships
             return _result;
         }
     }
+}

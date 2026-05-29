@@ -4,13 +4,11 @@ using mendes.Application.Enums;
 using mendes.Application.Identity.Commands;
 using mendes.Application.Identity.Dtos;
 using mendes.Application.Models;
-using mendes.Application.Options;
 using mendes.Application.Services;
 using mendes.Dal;
 using mendes.Domain.Aggregates.UserProfileAggregate;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 

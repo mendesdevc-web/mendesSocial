@@ -1,43 +1,50 @@
-﻿using Azure;
-using MediatR;
+﻿using MediatR;
 using mendes.Application.Enums;
 using mendes.Application.Models;
+using mendes.Application.UserProfiles.Models;
 using mendes.Application.UserProfiles.Queries;
 using mendes.Dal;
-using mendes.Domain.Aggregates.UserProfileAggregate;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace mendes.Application.UserProfiles.QueriesHandlers
 {
-    internal class GetUserProfileByIdHandler 
-        : IRequestHandler<GetUserProfileById, OperationResult<UserProfile>>
+    internal class GetUserProfileByIdHandler
+        : IRequestHandler<GetUserProfileById, OperationResult<UserProfileDto>>
     {
-        
         private readonly DataContext _ctx;
+
         public GetUserProfileByIdHandler(DataContext ctx)
         {
             _ctx = ctx;
         }
-        public async Task<OperationResult<UserProfile>> Handle(GetUserProfileById request, CancellationToken cancellationToken)
+
+        public async Task<OperationResult<UserProfileDto>> Handle(GetUserProfileById request,
+            CancellationToken cancellationToken)
         {
-            var result =new OperationResult<UserProfile>();
-            
+            var result = new OperationResult<UserProfileDto>();
+
             var profile = await _ctx.UserProfiles
-                .FirstOrDefaultAsync(up => up.UserProfileId == request.UserProfileId);
+                .FirstOrDefaultAsync(up => up.UserProfileId == request.UserProfileId,
+                    cancellationToken: cancellationToken);
 
             if (profile is null)
             {
-                result.IsError = true;
-                var error = new Error
-                {
-                    Code = ErrorCode.NotFound,
-                    Message = $"No UserProfile found with Id {request.UserProfileId}"
-                };
-                result.Errors.Add(error);
+                result.AddError(ErrorCode.NotFound,
+                    string.Format(UserProfilesErrorMessages.UserProfileNotFound, request.UserProfileId));
                 return result;
             }
 
-            result.Payload = profile;
+            var friendRequests = await _ctx.FriendRequests
+                .Where(fr => fr.ReceiverUserProfileId == request.UserProfileId)
+                .ToListAsync();
+
+            var friendships = await _ctx.Friendships
+                .Where(f => f.FirstFriendUserProfileId == request.UserProfileId
+                            || f.SecondFriendUserProfileId == request.UserProfileId)
+                .ToListAsync();
+
+            result.Payload = UserProfileDto.FromUserProfile(profile, friendRequests, friendships);
             return result;
         }
     }

@@ -5,11 +5,7 @@ using mendes.Application.Posts.Commands;
 using mendes.Dal;
 using mendes.Domain.Aggregates.PostAggregate;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace mendes.Application.Posts.CommandHandlers
 {

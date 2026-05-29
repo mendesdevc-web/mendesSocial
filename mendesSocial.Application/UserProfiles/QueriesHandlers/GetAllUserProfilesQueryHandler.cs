@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace mendes.Application.UserProfiles.QueriesHandlers
 {
-    internal class GetAllUserProfilesQueryHandler 
+    internal class GetAllUserProfilesQueryHandler
         : IRequestHandler<GetAllUserProfiles, OperationResult<IEnumerable<UserProfile>>>
     {
         private readonly DataContext _ctx;
@@ -17,12 +17,11 @@ namespace mendes.Application.UserProfiles.QueriesHandlers
             _ctx = ctx;
         }
 
-        public async Task<OperationResult<IEnumerable<UserProfile>>> Handle(GetAllUserProfiles request, 
+        public async Task<OperationResult<IEnumerable<UserProfile>>> Handle(GetAllUserProfiles request,
             CancellationToken cancellationToken)
         {
             var result = new OperationResult<IEnumerable<UserProfile>>();
-
-            result.Payload = await _ctx.UserProfiles.ToListAsync();
+            result.Payload = await _ctx.UserProfiles.ToListAsync(cancellationToken: cancellationToken);
             return result;
         }
     }

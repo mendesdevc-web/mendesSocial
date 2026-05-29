@@ -7,7 +7,7 @@ namespace mendes.Api.Registrars
         public void RegisterServices(WebApplicationBuilder builder)
         {
             builder.Services.AddSwaggerGen();
-            builder.Services.ConfigureOptions<ConfigureSwaggerOpitions>();
+            builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
         }
     }
 }

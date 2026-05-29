@@ -53,3 +53,4 @@ namespace mendes.Application.Friendships
             return _result;
         }
     }
+}

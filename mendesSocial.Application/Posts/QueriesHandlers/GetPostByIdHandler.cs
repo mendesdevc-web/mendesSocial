@@ -1,16 +1,12 @@
 ﻿using MediatR;
 using mendes.Application.Enums;
 using mendes.Application.Models;
+using mendes.Application.Posts;
 using mendes.Application.Posts.Queries;
-using mendes.Application.Posts.QueriesHandlers;
 using mendes.Dal;
 using mendes.Domain.Aggregates.PostAggregate;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace mendes.Application.Postss.QueriesHandlers
 {
@@ -29,11 +25,8 @@ namespace mendes.Application.Postss.QueriesHandlers
 
             if (post is null)
             {
-                result.Errors.Add(new Error
-                {
-                    Code = ErrorCode.NotFound,
-                    Message = string.Format(PostsErrorMessages.PostNotFound, request.PostId)
-                });
+                result.AddError(ErrorCode.NotFound,
+                    string.Format(PostsErrorMessages.PostNotFound, request.PostId));
                 return result;
             }
 

@@ -17,12 +17,14 @@ namespace mendes.Api.Registrars
                         description.ApiVersion.ToString());
                 }
             });
+
             app.UseHttpsRedirection();
 
             app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllers();
+
         }
     }
 }

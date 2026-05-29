@@ -26,7 +26,6 @@ namespace mendes.Api.Registrars
                 config.GroupNameFormat = "'v'VVV";
                 config.SubstituteApiVersionInUrl = true;
             });
-
             builder.Services.AddEndpointsApiExplorer();
         }
     }

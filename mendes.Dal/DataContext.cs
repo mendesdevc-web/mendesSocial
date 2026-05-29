@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using mendes.Domain.Aggregates.PostAggregate;
 using mendes.Domain.Aggregates.UserProfileAggregate;
 using mendes.Dal.Configuration;
+using mendes.Domain.Aggregates.Friendships;
 
 
 namespace mendes.Dal

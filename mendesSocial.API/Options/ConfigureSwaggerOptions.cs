@@ -1,15 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc.ApiExplorer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace mendes.Api.Options
 {
-    public class ConfigureSwaggerOpitions : IConfigureOptions<SwaggerGenOptions>
+    public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
     {
         private readonly IApiVersionDescriptionProvider _provider;
 
-        public ConfigureSwaggerOpitions(IApiVersionDescriptionProvider provider)
+        public ConfigureSwaggerOptions(IApiVersionDescriptionProvider provider)
         {
             _provider = provider;
         }
@@ -33,13 +34,13 @@ namespace mendes.Api.Options
         {
             var info = new OpenApiInfo
             {
-                Title = "MendesSocial",
+                Title = "CwkSocial",
                 Version = description.ApiVersion.ToString()
             };
 
             if (description.IsDeprecated)
             {
-                info.Description = "This Api version has been deprecated";
+                info.Description = "This API version has been deprecated";
             }
 
             return info;
@@ -57,7 +58,7 @@ namespace mendes.Api.Options
                 BearerFormat = "JWT",
                 Reference = new OpenApiReference
                 {
-                    Id = "Bearer",
+                    Id = JwtBearerDefaults.AuthenticationScheme,
                     Type = ReferenceType.SecurityScheme
                 }
             };

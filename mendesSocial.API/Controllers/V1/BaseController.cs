@@ -1,14 +1,24 @@
-﻿using Azure;
+﻿using AutoMapper;
+using Azure;
+using MediatR;
+using mendes.Api.Contracts.Common;
 using mendes.Application.Enums;
 using mendes.Application.Models;
-using mendes.Api.Contracts.Common;
 using Microsoft.AspNetCore.Mvc;
 
 namespace mendes.Api.Controllers.V1
 {
+    [ApiVersion("1.0")]
+    [Route(ApiRoutes.BaseRoute)]
+    [ApiController]
     public class BaseController : ControllerBase
     {
-       protected IActionResult HandleErrorResponse(List<Error> errors)
+        private IMediator _mediatorInstance;
+        private IMapper _mapperInstance;
+        protected IMediator _mediator => _mediatorInstance ??= HttpContext.RequestServices.GetService<IMediator>();
+        protected IMapper _mapper => _mapperInstance ??= HttpContext.RequestServices.GetService<IMapper>();
+
+        protected IActionResult HandleErrorResponse(List<Error> errors)
         {
             var apiError = new ErrorResponse();
 
@@ -23,15 +33,12 @@ namespace mendes.Api.Controllers.V1
 
                 return NotFound(apiError);
             }
-            
-            
-            apiError.StatusCode = 404;
-            apiError.StatusPhrase = "Internal server error";
+
+            apiError.StatusCode = 400;
+            apiError.StatusPhrase = "Bad request";
             apiError.Timestamp = DateTime.Now;
-            apiError.Errors.Add("Unknow error");
-
-            return NotFound(apiError);
-
+            errors.ForEach(e => apiError.Errors.Add(e.Message));
+            return StatusCode(400, apiError);
         }
     }
 }

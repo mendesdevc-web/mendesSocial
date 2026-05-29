@@ -1,13 +1,19 @@
-﻿using mendes.Application.Options;
+﻿using MediatR;
+using mendes.Application.Enums;
+using mendes.Application.Models;
+using mendes.Application.Options;
+using mendes.Application.UserProfiles;
+using mendes.Application.UserProfiles.Commands;
+using mendes.Dal;
+using mendes.Domain.Aggregates.UserProfileAggregate;
+using mendes.Domain.Exceptions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
+
 
 namespace mendes.Application.Services
 {
